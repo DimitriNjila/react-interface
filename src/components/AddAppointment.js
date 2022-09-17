@@ -1,30 +1,28 @@
-import React from 'react'
-import { useState } from 'react'
-import { BiCalendarPlus } from "react-icons/bi"
+import { BiCalendarPlus } from 'react-icons/bi';
+import { useState } from 'react';
 
 const AddAppointment = ({ onSendAppointment, lastId }) => {
-
   const clearData = {
     ownerName: '',
     petName: '',
     aptDate: '',
     aptTime: '',
-    aptNotes: ''
-  }
-  const [toggleForm, setToggleForm] = useState(false)
-  const [formData, setFormData] = useState(clearData);
+    aptNotes: '',
+  };
+  let [toggleForm, setToggleForm] = useState(false);
+  let [formData, setFormData] = useState(clearData);
 
-  const formDataPublish = () => {
+  function formDataPublish() {
     const appointmentInfo = {
       id: lastId + 1,
       ownerName: formData.ownerName,
       petName: formData.petName,
       aptDate: formData.aptDate + ' ' + formData.aptTime,
-      aptNotes: formData.aptNotes
+      aptNotes: formData.aptNotes,
     };
     onSendAppointment(appointmentInfo);
-    setFormData(clearData)
-    setToggleForm(!toggleForm)
+    setFormData(clearData);
+    setToggleForm(!toggleForm);
   }
 
   return (
@@ -33,9 +31,8 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
         onClick={() => {
           setToggleForm(!toggleForm);
         }}
-        className={`bg-blue-400 text-white px-2 py-3 w-full text-left rounded-t-md ${
-          toggleForm ? 'rounded-t-md' : 'rounded-md'
-        }`}
+        className={`bg-blue-400 text-white px-2 py-3 w-full text-left rounded-t-md
+        ${toggleForm ? 'rounded-t-md' : 'rounded-md'}`}
       >
         <div>
           <BiCalendarPlus className='inline-block align-text-top' /> Add
@@ -64,6 +61,7 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
               />
             </div>
           </div>
+
           <div className='sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:pt-5'>
             <label
               htmlFor='petName'
@@ -137,12 +135,12 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
             <div className='mt-1 sm:mt-0 sm:col-span-2'>
               <textarea
                 id='aptNotes'
+                name='aptNotes'
+                rows='3'
                 onChange={(event) => {
                   setFormData({ ...formData, aptNotes: event.target.value });
                 }}
                 value={formData.aptNotes}
-                name='aptNotes'
-                rows='3'
                 className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md'
                 placeholder='Detailed comments about the condition'
               ></textarea>
@@ -153,7 +151,7 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
             <div className='flex justify-end'>
               <button
                 type='submit'
-                onclick={formDataPublish}
+                onClick={formDataPublish}
                 className='ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400'
               >
                 Submit
@@ -164,6 +162,6 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
       )}
     </div>
   );
-}
+};
 
-export default AddAppointment
+export default AddAppointment;
